@@ -19,19 +19,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Install pnpm globally
+        run: npm install -g pnpm@latest
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'pnpm'
 
-      - name: Ensure pnpm available (Corepack + fallback)
-        run: |
-          corepack enable || true
-          corepack prepare pnpm@latest --activate || true
-          if ! command -v pnpm >/dev/null 2>&1; then
-            npm install -g pnpm@latest
-          fi
+      - name: Verify pnpm available
+        run: pnpm --version
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
