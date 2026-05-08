@@ -67,11 +67,14 @@ Notes
 ## Project Structure
 ```
 src/
- ├── domain/           # Core entities (No dependencies)
- ├── ports/            # Interfaces for the outside world
- ├── application/      # Use cases
- ├── adapters/         
- │   ├── inbound/      # Controllers (Express)
- │   └── outbound/     # Repositories (Database)
- ├── index.ts.         # Entrypoint
- ```
+ ├── adapters/
+ │   ├── inbound/
+ │   │   └── http/                # HTTP controllers and helpers
+ │   └── outbound/                # Infrastructure adapters (e.g. Node, DB)
+ ├── application/                 # Use cases / application services
+ │   └── errors/                   # Application-specific errors
+ ├── domain/                      # Core domain models / entities
+ ├── ports/                       # Interfaces (ports) for adapters
+ ├── utils/                       # Small utilities (logger, etc.)
+ ├── index.ts                     # Application entrypoint
+```
