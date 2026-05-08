@@ -3,5 +3,5 @@ import { pathToFileURL } from 'node:url';
 
 register('ts-node/esm', pathToFileURL(process.cwd() + '/'));
 
-// Delegate to the TypeScript entrypoint
-import '../src/index.ts';
+const entry = new URL('../src/index.ts', import.meta.url).href;
+await import(entry);
