@@ -1,6 +1,7 @@
 import fs from 'fs/promises';
 import path from 'path';
 import type { SystemInfoPort } from '../../ports/SystemInfoPort.js';
+import logger from '../../utils/logger.js';
 
 export class NodeSystemInfoAdapter implements SystemInfoPort {
   async getAppVersion(): Promise<string> {
@@ -9,7 +10,7 @@ export class NodeSystemInfoAdapter implements SystemInfoPort {
       const version = await fs.readFile(versionPath, 'utf-8');
       return version.trim();
     } catch (error) {
-      console.error('Failed to read VERSION.txt', error);
+      logger.error('Failed to read VERSION.txt', error);
       return 'unknown';
     }
   }
