@@ -2,6 +2,7 @@ import type { Request, Response } from 'express';
 import { GetHealthStatusUseCase } from '../../application/GetHealthStatus.js';
 import { SystemDegradedError, VersionInfoMissingError } from '../../application/errors/HealthErrors.js';
 import { HttpStatus } from './http/HttpStatus.js';
+import logger from '../../utils/logger.js';
 
 export class HealthController {
   constructor(private readonly healthUseCase: GetHealthStatusUseCase) {}
@@ -16,6 +17,8 @@ export class HealthController {
       });
 
     } catch (error: any) {
+      logger.error('HealthController#get error', error?.message ?? error, { stack: error?.stack });
+
       if (error instanceof VersionInfoMissingError) {
         res.status(HttpStatus.NOT_FOUND).json({ 
           feature: 'HealthCheck',
