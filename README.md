@@ -53,6 +53,35 @@ pnpm run lint:ci # CI-safe lint (no warnings allowed)
 pnpm run format  # Prettier
 ```
 
+Dependency Maintenance
+
+**Audit for outdated packages:**
+
+```bash
+pnpm outdated
+```
+
+This displays current versions vs. latest available versions.
+
+**Update a specific package:**
+
+```bash
+pnpm update <package-name>
+```
+
+**Update all packages to latest versions:**
+
+```bash
+pnpm update --latest
+```
+
+**After updating dependencies:**
+
+1. Run `pnpm install` to update `pnpm-lock.yaml`.
+2. Run `pnpm run lint:ci`, `pnpm test`, and `pnpm run build` to verify compatibility.
+3. Check for breaking changes in major version bumps (e.g., ESLint v9+, which requires `eslint.config.mjs` instead of `.eslintrc.cjs`).
+4. Commit the changes using a conventional commit: `chore(deps): upgrade <packages> to <versions>`.
+
 Contributing
 
 - Follow Conventional Commits for small, focused commits.
