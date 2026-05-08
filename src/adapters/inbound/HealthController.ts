@@ -16,8 +16,10 @@ export class HealthController {
         data: health
       });
 
-    } catch (error: any) {
-      logger.error('HealthController#get error', error?.message ?? error, { stack: error?.stack });
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : String(error);
+      const stack = error instanceof Error ? error.stack : undefined;
+      logger.error('HealthController#get error', message, { stack });
 
       if (error instanceof VersionInfoMissingError) {
         res.status(HttpStatus.NOT_FOUND).json({ 
