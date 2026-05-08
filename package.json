@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node --loader ts-node/esm src/index.ts",
-    "dev": "nodemon --exec \"node --loader ts-node/esm\" src/index.ts",
+    "start": "node scripts/start.mjs",
+    "dev": "nodemon --exec \"node scripts/start.mjs\" src/index.ts",
     "lint": "eslint \"src/**/*.{ts,tsx}\" --ext .ts,.tsx",
     "lint:ci": "eslint \"src/**/*.{ts,tsx}\" --ext .ts,.tsx --max-warnings=0",
     "format": "prettier --write .",
