@@ -2,41 +2,67 @@
 
 Small example of hexagonal architecture using TypeScript and Node.
 
-Getting started
+Prerequisites
 
-1. Install dependencies:
+- Node.js (18.x or 20.x recommended)
+- pnpm (Corepack enabled) — run `corepack enable` if needed
+
+Install
 
 ```bash
 pnpm install
 ```
 
-2. Run in development (auto-restarts):
+If pnpm reports ignored native build scripts (e.g. `esbuild`), approve them before re-running install:
+
+```bash
+pnpm approve-builds
+pnpm install
+# or approve a specific package
+pnpm approve-builds esbuild@0.21.5
+pnpm install
+```
+
+Development
 
 ```bash
 pnpm run dev
 ```
 
-3. Start production (uses ts-node ESM wrapper):
+This runs `nodemon` with the ESM start wrapper (`scripts/start.mjs`) which registers `ts-node/esm` and then loads `src/index.ts`.
+
+Run (dev wrapper)
 
 ```bash
 pnpm start
 ```
 
-Useful scripts
+Build & Production
 
-- `pnpm run dev` — start with `nodemon` for development
-- `pnpm start` — run the `scripts/start.mjs` wrapper which registers `ts-node/esm`
-- `pnpm run lint` — run ESLint over `src`
-- `pnpm run format` — run Prettier to format files
+```bash
+pnpm run build
+pnpm run start:prod
+```
 
-Notes
+Testing, Linting & Formatting
 
-- The project uses ESM-style imports in sources and a small `scripts/start.mjs` wrapper to register `ts-node/esm` to avoid experimental loader warnings.
-- Add tests with Vitest or Jest (not included yet).
+```bash
+pnpm test        # run Vitest
+pnpm run lint    # run ESLint
+pnpm run lint:ci # CI-safe lint (no warnings allowed)
+pnpm run format  # Prettier
+```
 
 Contributing
 
-Open a PR with small, focused commits following Conventional Commits.
+- Follow Conventional Commits for small, focused commits.
+- CI runs lint, tests, and build via GitHub Actions.
+
+Notes
+
+- The repository uses ESM-style imports in source files (imports end with `.js`) and TypeScript is built with `tsc` to `./dist` for production runs.
+- CI uses `pnpm install --frozen-lockfile` and runs lint/test/build on push and pull requests.
+
 
 ## Project Structure
 ```
