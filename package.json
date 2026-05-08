@@ -14,7 +14,7 @@
     "start:prod": "pnpm run build && node dist/index.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "CWoople",
   "license": "ISC",
   "devEngines": {
     "packageManager": {
